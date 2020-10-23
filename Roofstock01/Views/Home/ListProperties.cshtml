@@ -1,0 +1,76 @@
+﻿@model DTOs.PropertyServiceResponse
+
+@{
+    ViewData["Title"] = "Properties";
+}
+
+<h1>Properties</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Address</th>
+            <th>Year Built</th>
+            <th>List Price</th>
+            <th>Monthly Rate</th>
+            <th>Gross Yield</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.properties)
+        {
+            <tr id=@($"row-{item.id}")>
+                <td id=@($"address-{item.id}")>
+                    @item.address?.address1.Trim()
+                </td>
+                <td id=@($"year-{item.id}")>
+                    @item.physical?.yearBuilt
+                </td>
+                <td id=@($"listPrice-{item.id}")>
+                    @(item.financial != null ? $"$ {item.financial.listPrice.ToString("0.00")}": "")
+                </td>
+                <td id=@($"monthlyPrice-{item.id}")>
+                    @(item.financial != null ? $"$ {item.financial.monthlyRent.ToString("0.00")}": "")
+                </td>
+                <td id=@($"grossYield-{item.id}")>
+                    @(item.financial != null && item.financial.listPrice > 0 ? $"{((item.financial.monthlyRent * 12 / item.financial.listPrice)*100).ToString("0.00")} %": "")
+                </td>
+                <td>
+                    <button id=@($"save-{item.id}") type="button" onclick='save(this.id);'>Save</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function save(id) {
+        let identifier = id.split('-')[1];
+        debugger;
+        let address = $("#address-" + identifier)[0].innerText;
+        let yearBuilt = $("#year-" + identifier)[0].innerText;
+        let listPrice = $("#listPrice-" + identifier)[0].innerText;
+        let monthlyPrice = $("#monthlyPrice-" + identifier)[0].innerText;
+        let grossYield = $("#grossYield-" + identifier)[0].innerText;
+
+
+        $.ajax({
+            url: '@Url.Action("SaveProperty", "Home")',
+            dataType: "json",
+            cache: false,
+            type: 'POST',
+            data: { address: address, yearBuilt: yearBuilt, listPrice: listPrice, monthlyPrice: monthlyPrice, grossYield: grossYield },
+            success: function (result) {
+                debugger;
+                if (result.success) {
+                    alert("The record was saved");
+                }
+            },
+            error: function (result) {
+                alert("Error");
+            }
+        });
+    }
+
+</script>

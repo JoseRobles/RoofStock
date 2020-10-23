@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roofstock01", "Roofstock01.csproj", "{7994AF10-BECC-4AE3-884B-D6F70A333BFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTOs", "..\DTOs\DTOs.csproj", "{94BF9EB3-7A98-4C3B-9D4D-254507D71FDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "..\Repository\Repository.csproj", "{09456840-B7DC-4590-8F9B-9B3DC0EB6B63}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7994AF10-BECC-4AE3-884B-D6F70A333BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7994AF10-BECC-4AE3-884B-D6F70A333BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7994AF10-BECC-4AE3-884B-D6F70A333BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7994AF10-BECC-4AE3-884B-D6F70A333BFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94BF9EB3-7A98-4C3B-9D4D-254507D71FDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94BF9EB3-7A98-4C3B-9D4D-254507D71FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94BF9EB3-7A98-4C3B-9D4D-254507D71FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94BF9EB3-7A98-4C3B-9D4D-254507D71FDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09456840-B7DC-4590-8F9B-9B3DC0EB6B63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09456840-B7DC-4590-8F9B-9B3DC0EB6B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09456840-B7DC-4590-8F9B-9B3DC0EB6B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09456840-B7DC-4590-8F9B-9B3DC0EB6B63}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75C1D416-EA55-477D-9A68-085A48C71A17}
+	EndGlobalSection
+EndGlobal
