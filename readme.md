@@ -1,12 +1,30 @@
-# Search Fight
+# Roofstock Properties
 
-Search Engines battle to get a winner.
 
 ## Getting Started
 
-This project requires setting up API Urls and API keys for the two search engines we use. (Google and Bing). Google will need also a Custom Search API ID found in the Google Console.
-If you would like to add a new service you just need to add a new service class that implement IService interface and the application will take care of the rest. Also, keep in mind
-that you will need to set up configuration to every service in appconfig file.
+This project requires setting up a Database in order to work. Please run the following script in your database and change AppSetting.json database connection configuration to your desire database.
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Properties](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[address] [varchar](150) NOT NULL,
+	[year_built] [int] NOT NULL,
+	[list_price] [numeric](15, 2) NOT NULL,
+	[monthly_rent] [numeric](10, 2) NOT NULL,
+	[gross_yield] [numeric](6, 2) NOT NULL,
+ CONSTRAINT [PK__Properti__3214EC0700D74988] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF)
+)
+GO
+
 
 ### Prerequisites
 
@@ -20,9 +38,6 @@ If you just want to run the aplication use the release version and alter the con
 
 Upon downloading rebuild test project and then rebuild the solution. 
 
-## Running the tests
-
-This project uses Microsoft Unit test framework. You will need to load the project and then run the test. No configuration update required.
 
 ## Authors
 
