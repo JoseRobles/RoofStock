@@ -30,9 +30,6 @@ GO
 
 If you want build the application locally please use visual studio 2017 or 2019.
 
-```
-If you just want to run the aplication use the release version and alter the configuration file.
-```
 
 ### Installing
 
