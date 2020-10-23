@@ -33,7 +33,7 @@ If you want build the application locally please use visual studio 2017 or 2019.
 
 ### Installing
 
-Upon downloading rebuild test project and then rebuild the solution. 
+Upon downloading rebuild the solution. 
 
 
 ## Authors
