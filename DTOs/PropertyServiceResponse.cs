@@ -249,6 +249,13 @@ namespace DTOs
         public List<object> diligences { get; set; }
         public GoogleMapOption googleMapOption { get; set; }
         public object inspectionType { get; set; }
+        private double calculatedGroosYield;
+        public double CalculatedGroosYield {
+            get
+            { return calculatedGroosYield = financial != null && financial.listPrice > 0 ?
+                    ((financial.monthlyRent * 12 / financial.listPrice) * 100) : 0; }
+            set { }
+        }
     }
 
     public class PropertyServiceResponse

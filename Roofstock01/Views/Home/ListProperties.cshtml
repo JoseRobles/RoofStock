@@ -28,13 +28,14 @@
                     @item.physical?.yearBuilt
                 </td>
                 <td id=@($"listPrice-{item.id}")>
-                    @(item.financial != null ? $"$ {item.financial.listPrice.ToString("0.00")}": "")
+                    @(item.financial != null ? $"$ {item.financial.listPrice.ToString("0.00")}" : "")
                 </td>
                 <td id=@($"monthlyPrice-{item.id}")>
-                    @(item.financial != null ? $"$ {item.financial.monthlyRent.ToString("0.00")}": "")
+                    @(item.financial != null ? $"$ {item.financial.monthlyRent.ToString("0.00")}" : "")
                 </td>
                 <td id=@($"grossYield-{item.id}")>
-                    @(item.financial != null && item.financial.listPrice > 0 ? $"{((item.financial.monthlyRent * 12 / item.financial.listPrice)*100).ToString("0.00")} %": "")
+                   
+                    @(item.CalculatedGroosYield > 0 ? $"{item.CalculatedGroosYield.ToString("0.00")} %": "")
                 </td>
                 <td>
                     <button id=@($"save-{item.id}") type="button" onclick='save(this.id);'>Save</button>
@@ -54,7 +55,6 @@
         let monthlyPrice = $("#monthlyPrice-" + identifier)[0].innerText;
         let grossYield = $("#grossYield-" + identifier)[0].innerText;
 
-
         $.ajax({
             url: '@Url.Action("SaveProperty", "Home")',
             dataType: "json",
@@ -62,7 +62,6 @@
             type: 'POST',
             data: { address: address, yearBuilt: yearBuilt, listPrice: listPrice, monthlyPrice: monthlyPrice, grossYield: grossYield },
             success: function (result) {
-                debugger;
                 if (result.success) {
                     alert("The record was saved");
                 }
@@ -72,5 +71,4 @@
             }
         });
     }
-
 </script>

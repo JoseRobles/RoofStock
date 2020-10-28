@@ -33,18 +33,11 @@ namespace Roofstock01.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [HttpGet]
         public IActionResult ListProperties()
         {
             var propertiesHelper = new PropertiesHelper();
             var propertyServiceResponse = propertiesHelper.GetProperties();
-
-
             return View(propertyServiceResponse);
         }
 
@@ -52,7 +45,6 @@ namespace Roofstock01.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> SaveProperty(string address, string yearBuilt, string listPrice, string monthlyPrice, string grossYield)
         {
-            
             var genericResponse = new GenericResponse();
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
             Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator = ".";
@@ -62,7 +54,6 @@ namespace Roofstock01.Controllers
             int yearBuiltI = 0;
 
             var numberExpression = new Regex(@"\d+\.?\d*");
-           
             if (listPrice != null)
             {
                 var matchListPrice = numberExpression.Match(listPrice.Replace(',', '.'));
@@ -100,22 +91,20 @@ namespace Roofstock01.Controllers
             }
 
             int.TryParse(yearBuilt, out yearBuiltI);
-
             try
             {
                 await using (var context = _dbContext)
                 {
-                    var property = new DTOs.Properties { Address = address, YearBuilt = yearBuiltI, GrossYield = grossYieldD, ListPrice = listPriceD, MonthlyRent = monthlyPrinceD };
+                    var property = new DTOs.Properties { Address = address, YearBuilt = yearBuiltI, 
+                        GrossYield = grossYieldD, ListPrice = listPriceD, MonthlyRent = monthlyPrinceD };
+
                     context.Properties.Add(property);
                     await context.SaveChangesAsync();
                 }
 
                 genericResponse.Success = true;
                 genericResponse.Message = "Ok";
-
-                
                 return Json(genericResponse);
-
             }
             catch (Exception exp)
             {
@@ -125,9 +114,6 @@ namespace Roofstock01.Controllers
                 var result = new JsonResult(genericResponse);
                 return result;
             }
-           
-
- 
         }
  
 

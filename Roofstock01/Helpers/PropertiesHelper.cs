@@ -34,7 +34,6 @@ namespace Roofstock01.Helpers
             {
                 //Logger
             }
-
             return serviceResponse;
         }
     }

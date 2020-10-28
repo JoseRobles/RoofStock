@@ -13,19 +13,16 @@ namespace Roofstock01
         {
                 
         }
-
         public RoofStockDBContext(DbContextOptions<RoofStockDBContext> options)
             : base(options)
         {
         }
-
         public virtual DbSet<Properties> Properties { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Properties>(entity =>
@@ -55,7 +52,6 @@ namespace Roofstock01
 
             OnModelCreatingPartial(modelBuilder);
         }
-
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
