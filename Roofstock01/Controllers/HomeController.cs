@@ -36,7 +36,7 @@ namespace Roofstock01.Controllers
         [HttpGet]
         public IActionResult ListProperties()
         {
-            var propertiesHelper = new PropertiesHelper();
+            var propertiesHelper = new PropertiesHelper(_dbContext);
             var propertyServiceResponse = propertiesHelper.GetProperties();
             return View(propertyServiceResponse);
         }
@@ -45,78 +45,12 @@ namespace Roofstock01.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> SaveProperty(string address, string yearBuilt, string listPrice, string monthlyPrice, string grossYield)
         {
-            var genericResponse = new GenericResponse();
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
-            Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator = ".";
-            decimal listPriceD = 0;
-            decimal monthlyPrinceD = 0;
-            decimal grossYieldD = 0;
-            int yearBuiltI = 0;
+            var propertiesHelper = new PropertiesHelper(_dbContext);
+            var genericResponse = await propertiesHelper.SaveProperty(address, yearBuilt, listPrice, monthlyPrice, grossYield);
 
-            var numberExpression = new Regex(@"\d+\.?\d*");
-            if (listPrice != null)
-            {
-                var matchListPrice = numberExpression.Match(listPrice.Replace(',', '.'));
-                if (matchListPrice.Success)
-                {
-                    decimal.TryParse(matchListPrice.Groups[0].Value, out listPriceD);
-                }
-            }else
-            {
-                listPriceD = 0;
-            }
-
-            if (monthlyPrice != null)
-            {
-                var matchMonthlyPrice = numberExpression.Match(monthlyPrice.Replace(',', '.'));
-                if (matchMonthlyPrice.Success)
-                {
-                    decimal.TryParse(matchMonthlyPrice.Groups[0].Value, out monthlyPrinceD);
-                }
-            }else
-            {
-                monthlyPrinceD = 0;
-            }
-
-            if (grossYield != null)
-            {
-                var matchGrossYield = numberExpression.Match(grossYield.Replace(',', '.'));
-                if (matchGrossYield.Success)
-                {
-                    decimal.TryParse(matchGrossYield.Groups[0].Value, out grossYieldD);
-                }
-            }else
-            {
-                grossYieldD = 0;
-            }
-
-            int.TryParse(yearBuilt, out yearBuiltI);
-            try
-            {
-                await using (var context = _dbContext)
-                {
-                    var property = new DTOs.Properties { Address = address, YearBuilt = yearBuiltI, 
-                        GrossYield = grossYieldD, ListPrice = listPriceD, MonthlyRent = monthlyPrinceD };
-
-                    context.Properties.Add(property);
-                    await context.SaveChangesAsync();
-                }
-
-                genericResponse.Success = true;
-                genericResponse.Message = "Ok";
-                return Json(genericResponse);
-            }
-            catch (Exception exp)
-            {
-                genericResponse.Success = false;
-                genericResponse.Message = "Internal Error";
-
-                var result = new JsonResult(genericResponse);
-                return result;
-            }
+            return Json(genericResponse);
         }
  
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
